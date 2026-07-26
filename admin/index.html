@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — Advancer POW</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080B10;--surface:#0F1318;--card:#131820;--border:#1E2530;--accent:#7B61FF;--accent2:#00E5C3;--text:#E8EDF2;--muted:#5A6470;--dim:#8A94A0}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:380px}
+.eye{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:.2em;margin-bottom:8px}
+h2{font-size:24px;font-weight:700;margin-bottom:8px}
+.sub{color:var(--dim);font-size:13px;margin-bottom:28px}
+.field{margin-bottom:16px}
+.field label{font-size:11px;font-family:'Space Mono',monospace;color:var(--dim);display:block;margin-bottom:6px}
+.field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:14px;outline:none;font-family:'Space Grotesk',sans-serif}
+.field input:focus{border-color:var(--accent)}
+.err{color:#ff4d4d;font-size:12px;margin-bottom:12px;display:none}
+.btn{width:100%;background:var(--accent);border:none;border-radius:8px;padding:12px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;margin-bottom:10px}
+.btn:hover{opacity:.9}
+.btn-ghost{width:100%;background:none;border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--muted);font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="box">
+  <p class="eye">ADMIN ACCESS</p>
+  <h2>Welcome back</h2>
+  <p class="sub">Sign in to manage your Proof of Work</p>
+  <div class="field"><label>EMAIL</label><input id="email" type="email" placeholder="your@email.com"></div>
+  <div class="field"><label>PASSWORD</label><input id="password" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()"></div>
+  <p id="err" class="err">Wrong email or password</p>
+  <button class="btn" onclick="login()">Sign In</button>
+  <button class="btn-ghost" onclick="location.href='../'">← Back to Site</button>
+</div>
+<script src="../config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const err = document.getElementById("err");
+  err.style.display = "none";
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) { err.style.display = "block"; return; }
+  location.href = "/admin/dashboard.html";
+}
+
+// Auto redirect if already logged in
+sb.auth.getSession().then(({ data }) => {
+  if (data.session) location.href = "/admin/dashboard.html";
+});
+</script>
+</body>
+</html>
