@@ -7,121 +7,147 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#080B10;--surface:#0F1318;--card:#131820;--border:#1E2530;--accent:#7B61FF;--accent2:#00E5C3;--text:#E8EDF2;--muted:#5A6470;--dim:#8A94A0}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh}
+:root{
+  --bg:#080B10;--surface:#0F1318;--card:#131820;--border:#1E2530;
+  --accent:#7B61FF;--accent2:#00E5C3;--text:#E8EDF2;--muted:#5A6470;--dim:#8A94A0;
+  --win:#00e5a0;--loss:#ff4d4d;--open:#00c9a0;
+}
+html.light{
+  --bg:#F4F6F9;--surface:#FFFFFF;--card:#FFFFFF;--border:#E2E6ED;
+  --text:#1A1F2B;--muted:#6B7280;--dim:#4B5563;
+}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;transition:background .25s,color .25s}
 a{color:inherit;text-decoration:none}
 
-.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
 
 /* HEADER */
-.site-header{padding:56px 0 40px;border-bottom:1px solid var(--border)}
-.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--accent2);text-transform:uppercase;margin-bottom:16px}
-.site-title{font-size:clamp(28px,5vw,52px);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+.site-header{padding:40px 0 28px;border-bottom:1px solid var(--border);position:relative}
+.theme-toggle{position:absolute;top:18px;right:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:14px;cursor:pointer;color:var(--dim);transition:all .2s}
+.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:12px}
+.site-title{font-size:clamp(26px,4.5vw,46px);font-weight:700;line-height:1.08;letter-spacing:-.02em}
 .site-title span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.site-sub{margin-top:12px;color:var(--dim);font-size:14px;max-width:480px;line-height:1.6}
-.header-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:16px}
-.back-link{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);transition:color .2s}
+.site-sub{margin-top:10px;color:var(--dim);font-size:13px;max-width:460px;line-height:1.55}
+.header-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:18px;flex-wrap:wrap;gap:12px}
+.back-link{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);transition:color .2s}
 .back-link:hover{color:var(--accent2)}
-.search-wrap{position:relative;width:280px}
-.search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px 9px 36px;color:var(--text);font-size:13px;outline:none;font-family:'Space Grotesk',sans-serif;transition:border-color .2s}
+.search-wrap{position:relative;width:240px}
+.search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 12px 8px 32px;color:var(--text);font-size:12px;outline:none;font-family:'Space Grotesk',sans-serif}
 .search-input:focus{border-color:var(--accent)}
-.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;pointer-events:none}
 
-/* SECTION */
-section{padding:44px 0;border-bottom:1px solid var(--border)}
+/* SECTIONS */
+section{padding:32px 0;border-bottom:1px solid var(--border)}
 section:last-of-type{border-bottom:none}
-.section-label{display:flex;align-items:center;gap:10px;margin-bottom:28px}
-.section-label h2{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.section-label{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.section-label h2{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.empty-msg,.loading-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:8px 0}
+.empty-msg,.loading-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:6px 0}
 .loading-msg{animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* WRITING GRID */
-.writing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+/* WRITING */
+.writing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 @media(max-width:900px){.writing-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.writing-grid{grid-template-columns:1fr}}
 
-.w-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:border-color .2s,transform .2s}
+.w-card{background:var(--card);border:1px solid var(--border);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
 .w-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .w-thumb{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top;display:block}
-.w-thumb-empty{width:100%;aspect-ratio:3/2;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.05em}
-.w-body{padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;gap:3px}
-.w-tag{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2)}
-.w-title{font-size:12px;font-weight:600;line-height:1.35;color:var(--text)}
-.w-date{font-size:10px;color:var(--muted);margin-top:auto;padding-top:6px}
-.w-footer{padding:7px 12px;border-top:1px solid var(--border);background:var(--card);display:flex;justify-content:flex-end}
-.w-cta{background:var(--accent);color:#fff;font-size:9px;font-family:'Space Mono',monospace;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.05em}
+.w-thumb-empty{width:100%;aspect-ratio:3/2;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px}
+.w-body{padding:9px 11px 8px;flex:1;display:flex;flex-direction:column;gap:2px}
+.w-tag{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
+.w-title{font-size:12px;font-weight:600;line-height:1.3;color:var(--text)}
+.w-date{font-size:10px;color:var(--muted);margin-top:4px}
+.w-footer{padding:6px 11px;border-top:1px solid var(--border);display:flex;justify-content:flex-end}
+.w-cta{background:var(--accent);color:#fff;font-size:9px;font-family:'Space Mono',monospace;font-weight:700;padding:3px 8px;border-radius:4px}
 
-/* TRADE GRID */
-.trades-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:start}
+/* TRADES */
+.trades-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 @media(max-width:700px){.trades-grid{grid-template-columns:1fr}}
 
-.trade-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s}
+.trade-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s}
 .trade-card:hover{border-color:rgba(123,97,255,.4)}
 
-.trade-header{padding:16px 18px 14px;border-bottom:1px solid var(--border)}
-.trade-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.trade-pair{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:.06em}
-.badge{font-family:'Space Mono',monospace;font-size:9px;padding:2px 8px;border-radius:20px;letter-spacing:.06em}
-.badge-open{background:rgba(0,229,195,.1);color:#00e5a0;border:1px solid rgba(0,229,195,.2)}
-.badge-closed-win{background:rgba(0,229,195,.1);color:var(--accent2);border:1px solid rgba(0,229,195,.2)}
-.badge-closed-loss{background:rgba(255,77,77,.1);color:#ff4d4d;border:1px solid rgba(255,77,77,.2)}
-.badge-roi{background:rgba(123,97,255,.1);color:var(--accent);border:1px solid rgba(123,97,255,.2)}
-.trade-title-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.35}
+.trade-header{padding:12px 14px 10px;border-bottom:1px solid var(--border)}
+.trade-meta{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap}
+.trade-pair{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:.05em}
+.icon-badge{display:inline-flex;align-items:center;gap:3px;font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:12px;letter-spacing:.04em}
+.icon-open{background:rgba(0,201,160,.1);color:var(--open);border:1px solid rgba(0,201,160,.25)}
+.icon-win{background:rgba(0,229,160,.12);color:var(--win);border:1px solid rgba(0,229,160,.3)}
+.icon-loss{background:rgba(255,77,77,.1);color:var(--loss);border:1px solid rgba(255,77,77,.25)}
+.icon-roi{background:rgba(123,97,255,.1);color:var(--accent);border:1px solid rgba(123,97,255,.25)}
+.trade-title-text{font-size:13px;font-weight:600;color:var(--text);line-height:1.3}
+.trade-date{font-size:10px;color:var(--muted);margin-top:3px;font-family:'Space Mono',monospace}
 
-.trade-body{padding:14px 18px}
-.orig-thumb{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:top;display:block;border-radius:8px;border:1px solid var(--border)}
-.trade-caption{font-size:12px;color:var(--dim);line-height:1.5;margin-top:10px}
+.trade-body{padding:10px 14px}
+.img-carousel{position:relative;border-radius:7px;overflow:hidden;border:1px solid var(--border)}
+.img-carousel img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:top;display:block;user-select:none}
+.carousel-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:background .2s}
+.carousel-dot.active{background:#fff}
+.trade-caption{font-size:12px;color:var(--dim);line-height:1.45;margin-top:8px}
 
-.trade-footer{padding:10px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.view-post-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.08em;background:none;border:1px solid rgba(123,97,255,.3);border-radius:6px;padding:5px 12px;transition:background .2s}
+.trade-footer{padding:8px 14px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.view-post-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.06em;background:none;border:1px solid rgba(123,97,255,.3);border-radius:5px;padding:4px 10px;transition:background .2s}
 .view-post-btn:hover{background:rgba(123,97,255,.1)}
-.expand-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.08em;background:none;border:1px solid var(--border);border-radius:6px;padding:5px 12px;transition:all .2s}
+.expand-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.06em;background:none;border:1px solid var(--border);border-radius:5px;padding:4px 10px;transition:all .2s}
 .expand-btn:hover{border-color:var(--accent);color:var(--accent)}
-.no-updates-spacer{height:0}
 
-.trade-result{padding:10px 18px;border-top:1px solid var(--border)}
-.result-badge{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2)}
-.result-badge.loss{color:#ff4d4d}
-
-/* POPUP MODAL */
-.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+/* POPUP */
+.popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
 .popup-overlay.open{display:flex}
-.popup-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative}
-.popup-header{padding:18px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--card);z-index:1}
-.popup-trade-info{flex:1;min-width:0}
-.popup-pair{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);letter-spacing:.06em;margin-bottom:4px}
-.popup-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
-.popup-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:2px 6px;border-radius:6px;flex-shrink:0;line-height:1}
+.popup-box{background:var(--card);border:1px solid var(--border);border-radius:12px;width:100%;max-width:520px;max-height:88vh;overflow-y:auto}
+.popup-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;position:sticky;top:0;background:var(--card);z-index:1}
+.popup-pair{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);margin-bottom:3px}
+.popup-title{font-size:14px;font-weight:600;line-height:1.3}
+.popup-close{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:2px 5px;border-radius:5px;line-height:1}
 .popup-close:hover{background:var(--surface);color:var(--text)}
-.popup-body{padding:20px}
-
-.timeline-item{margin-bottom:20px}
+.popup-body{padding:16px}
+.timeline-item{margin-bottom:16px}
 .timeline-item:last-child{margin-bottom:0}
-.tl-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.08em;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.tl-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.06em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .tl-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.tl-img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--border);display:block}
-.tl-caption{font-size:12px;color:var(--dim);line-height:1.5;margin-top:8px}
-.tl-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.06em;background:rgba(123,97,255,.08);border:1px solid rgba(123,97,255,.2);border-radius:6px;padding:4px 10px;transition:background .2s}
-.tl-link:hover{background:rgba(123,97,255,.16)}
-.tl-connector{text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding:10px 0;letter-spacing:.1em}
+.tl-img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:top;border-radius:7px;border:1px solid var(--border);display:block}
+.tl-caption{font-size:12px;color:var(--dim);line-height:1.45;margin-top:6px}
+.tl-link{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);background:rgba(123,97,255,.08);border:1px solid rgba(123,97,255,.2);border-radius:5px;padding:3px 8px}
+.tl-connector{text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding:8px 0;letter-spacing:.08em}
 
-/* FOOTER */
-.site-footer{padding:28px 0}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+/* FOOTER + REVIEW */
+.site-footer{padding:24px 0 32px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
 .footer-name{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
-.footer-links{display:flex;gap:20px}
+.footer-links{display:flex;gap:16px}
 .footer-links a{font-size:12px;color:var(--muted);transition:color .2s}
 .footer-links a:hover{color:var(--accent2)}
+
+.review-section{text-align:center;padding-top:8px}
+.review-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 22px;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.review-btn:hover{border-color:var(--accent);color:var(--accent)}
+.review-success{font-size:12px;color:var(--accent2);margin-top:10px;display:none;font-family:'Space Mono',monospace}
+
+/* REVIEW MODAL */
+.review-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1100;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px)}
+.review-overlay.open{display:flex}
+.review-box{background:var(--card);border:1px solid var(--border);border-radius:12px;width:100%;max-width:400px;padding:20px}
+.review-box h3{font-size:15px;font-weight:600;margin-bottom:14px}
+.review-box label{font-size:10px;font-family:'Space Mono',monospace;color:var(--dim);display:block;margin-bottom:3px}
+.review-box input,.review-box textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;margin-bottom:12px;font-family:'Space Grotesk',sans-serif}
+.review-box textarea{min-height:100px;resize:vertical}
+.review-box input:focus,.review-box textarea:focus{border-color:var(--accent)}
+.review-actions{display:flex;gap:8px}
+.review-send{flex:1;background:var(--accent);border:none;border-radius:7px;padding:10px;color:#fff;font-size:13px;font-weight:600;cursor:pointer}
+.review-cancel{flex:1;background:none;border:1px solid var(--border);border-radius:7px;padding:10px;color:var(--muted);font-size:13px;cursor:pointer}
 </style>
 </head>
 <body>
 
-<!-- POPUP MODAL -->
+<!-- TRADE POPUP -->
 <div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
-  <div class="popup-box" id="popup-box">
+  <div class="popup-box">
     <div class="popup-header">
-      <div class="popup-trade-info">
+      <div>
         <p class="popup-pair" id="popup-pair"></p>
         <p class="popup-title" id="popup-title"></p>
       </div>
@@ -131,11 +157,27 @@ section:last-of-type{border-bottom:none}
   </div>
 </div>
 
+<!-- REVIEW MODAL -->
+<div class="review-overlay" id="review-overlay" onclick="closeReview(event)">
+  <div class="review-box" onclick="event.stopPropagation()">
+    <h3>Leave a Review</h3>
+    <label>YOUR NAME</label>
+    <input id="rev-name" type="text" placeholder="How should we call you?">
+    <label>YOUR REVIEW</label>
+    <textarea id="rev-text" placeholder="What do you think about this proof of work?"></textarea>
+    <div class="review-actions">
+      <button class="review-send" onclick="submitReview()">Send</button>
+      <button class="review-cancel" onclick="closeReviewDirect()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <header class="site-header">
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">☀️</button>
     <p class="eyebrow">✦ Advancer · Proof of Work</p>
     <h1 class="site-title">Research.<br><span>Writing. Execution.</span></h1>
-    <p class="site-sub">A living record of technical writing, market analysis, and onchain research, updated as new work drops. Everything on this page was built in public. Trades called before outcome, articles written to educate and inform. </p>
+    <p class="site-sub">A living record of technical writing, market analysis, and onchain research. Trades called before outcome. Articles written to educate.</p>
     <div class="header-bottom">
       <a href="https://advancer-portfolio.netlify.app/" class="back-link">← Back to Portfolio</a>
       <div class="search-wrap">
@@ -168,6 +210,10 @@ section:last-of-type{border-bottom:none}
         <a href="https://advancer-portfolio.netlify.app/" target="_blank">Portfolio</a>
       </div>
     </div>
+    <div class="review-section">
+      <button class="review-btn" onclick="openReview()">💬 Leave a Review</button>
+      <p class="review-success" id="review-success">✓ Review submitted. Thank you!</p>
+    </div>
   </footer>
 </div>
 
@@ -178,7 +224,21 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let allArticles = [];
 let allTrades = [];
 
-// ─── LOAD ─────────────────────────────────────────────────────────────────────
+// Theme
+function initTheme() {
+  const saved = localStorage.getItem("pow-theme");
+  if (saved === "light") {
+    document.documentElement.classList.add("light");
+    document.getElementById("theme-btn").textContent = "🌙";
+  }
+}
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle("light");
+  document.getElementById("theme-btn").textContent = isLight ? "🌙" : "☀️";
+  localStorage.setItem("pow-theme", isLight ? "light" : "dark");
+}
+initTheme();
+
 async function loadAll() {
   await Promise.all([loadArticles(), loadTrades()]);
 }
@@ -191,36 +251,79 @@ async function loadArticles() {
 }
 
 async function loadTrades() {
-  const { data } = await sb.from("trades").select("*, trade_updates(*)").order("created_at", { ascending: false });
+  const { data } = await sb.from("trades").select("*, trade_updates(*)").order("position", { ascending: true });
   document.getElementById("trades-loading").style.display = "none";
   allTrades = data || [];
   renderTrades(allTrades);
 }
 
-// ─── RENDER ARTICLES ──────────────────────────────────────────────────────────
 function renderArticles(items) {
   const grid = document.getElementById("writing-grid");
   const empty = document.getElementById("writing-empty");
   if (!items.length) { grid.innerHTML = ""; empty.style.display = "block"; return; }
   empty.style.display = "none";
   grid.innerHTML = items.map(a => `
-      <a class="w-card" href="${a.article_url || '#'}" target="_blank">
-        ${a.thumbnail
-          ? `<img class="w-thumb" src="${a.thumbnail}" alt="${a.title}">`
-          : `<div class="w-thumb-empty">NO IMAGE</div>`}
-        <div class="w-body">
-          <span class="w-tag">${a.tag || ""}</span>
-          <p class="w-title">${a.title}</p>
-          <p class="w-date">${formatDate(a.published_at)}</p>
-        </div>
-        <div class="w-footer">
-          <span class="w-cta">READ →</span>
-        </div>
-      </a>
-    `).join("");
+    <a class="w-card" href="${a.article_url || '#'}" target="_blank">
+      ${a.thumbnail ? `<img class="w-thumb" src="${a.thumbnail}" alt="">` : `<div class="w-thumb-empty">NO IMAGE</div>`}
+      <div class="w-body">
+        <span class="w-tag">${a.tag || ""}</span>
+        <p class="w-title">${a.title}</p>
+        <p class="w-date">${formatDate(a.published_at)}</p>
+      </div>
+      <div class="w-footer"><span class="w-cta">READ →</span></div>
+    </a>
+  `).join("");
 }
 
-// ─── RENDER TRADES ────────────────────────────────────────────────────────────
+function makeCarousel(img1, img2, id) {
+  if (!img1 && !img2) return "";
+  if (!img2) return `<div class="img-carousel"><img src="${img1}" alt=""></div>`;
+  return `
+    <div class="img-carousel" id="car-${id}" data-idx="0">
+      <img src="${img1}" alt="" class="car-img">
+      <div class="carousel-dots">
+        <span class="carousel-dot active" onclick="setCarImg('${id}',0)"></span>
+        <span class="carousel-dot" onclick="setCarImg('${id}',1)"></span>
+      </div>
+    </div>
+  `;
+}
+
+function setCarImg(id, idx) {
+  const el = document.getElementById("car-" + id);
+  if (!el) return;
+  const trade = allTrades.find(t => t.id === id || (t.trade_updates||[]).some(u => u.id === id));
+  let imgs = [];
+  if (trade && trade.id === id) imgs = [trade.chart_image, trade.chart_image_2].filter(Boolean);
+  else {
+    for (const t of allTrades) {
+      const u = (t.trade_updates||[]).find(x => x.id === id);
+      if (u) { imgs = [u.chart_image, u.chart_image_2].filter(Boolean); break; }
+    }
+  }
+  if (!imgs[idx]) return;
+  el.querySelector(".car-img").src = imgs[idx];
+  el.dataset.idx = idx;
+  el.querySelectorAll(".carousel-dot").forEach((d,i) => d.classList.toggle("active", i === idx));
+}
+
+// Simple swipe support
+document.addEventListener("touchstart", e => {
+  const car = e.target.closest(".img-carousel");
+  if (!car || !car.id.startsWith("car-")) return;
+  car._sx = e.touches[0].clientX;
+}, {passive:true});
+document.addEventListener("touchend", e => {
+  const car = e.target.closest(".img-carousel");
+  if (!car || !car._sx) return;
+  const dx = e.changedTouches[0].clientX - car._sx;
+  const id = car.id.replace("car-","");
+  const idx = parseInt(car.dataset.idx || 0);
+  if (dx < -40) setCarImg(id, Math.min(1, idx+1));
+  if (dx > 40) setCarImg(id, Math.max(0, idx-1));
+  delete car._sx;
+}, {passive:true});
+
 function renderTrades(items) {
   const grid = document.getElementById("trades-grid");
   const empty = document.getElementById("trades-empty");
@@ -229,44 +332,40 @@ function renderTrades(items) {
 
   grid.innerHTML = items.map(t => {
     const updates = (t.trade_updates || []).sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
-    const statusBadge = t.status === "open"
-      ? `<span class="badge badge-open">🟢 Open</span>`
+    const statusIcon = t.status === "open"
+      ? `<span class="icon-badge icon-open">● Open</span>`
       : t.status === "closed_win"
-        ? `<span class="badge badge-closed-win">✅ Win</span>`
-        : `<span class="badge badge-closed-loss">❌ Loss</span>`;
-    const roiBadge = t.roi ? `<span class="badge badge-roi">${t.status === "closed_win" ? "+" : "-"}${t.roi}% ROI</span>` : "";
-
-    const resultHtml = t.status !== "open" && t.roi
-      ? `<div class="trade-result"><span class="result-badge ${t.status === 'closed_loss' ? 'loss' : ''}">${t.status === "closed_win" ? "✅ +" : "❌ -"}${t.roi}% · ${t.trade_type || ""} · Closed</span></div>` : "";
+        ? `<span class="icon-badge icon-win">▲ Win</span>`
+        : `<span class="icon-badge icon-loss">▼ Loss</span>`;
+    const roiIcon = t.roi ? `<span class="icon-badge icon-roi">${t.status === "closed_win" ? "+" : "-"}${t.roi}%</span>` : "";
 
     const updatesBtn = updates.length
       ? `<button class="expand-btn" onclick="openPopup('${t.id}')">Updates (${updates.length}) →</button>`
-      : `<span style="font-family:monospace;font-size:10px;color:var(--muted)">No updates yet</span>`;
+      : `<span style="font-family:monospace;font-size:10px;color:var(--muted)">No updates</span>`;
 
     return `
       <div class="trade-card">
         <div class="trade-header">
           <div class="trade-meta">
             <span class="trade-pair">${t.ticker}/USDT · ${t.timeframe || ""} · ${t.exchange || ""}</span>
-            ${statusBadge}${roiBadge}
+            ${statusIcon}${roiIcon}
           </div>
           <p class="trade-title-text">${t.title || ""}</p>
+          <p class="trade-date">${formatDate(t.trade_date || t.created_at)}</p>
         </div>
         <div class="trade-body">
-          ${t.chart_image ? `<img class="orig-thumb" src="${t.chart_image}" alt="">` : ""}
+          ${makeCarousel(t.chart_image, t.chart_image_2, t.id)}
           ${t.caption ? `<p class="trade-caption">${t.caption}</p>` : ""}
         </div>
         <div class="trade-footer">
           <a href="${t.x_post || '#'}" target="_blank" class="view-post-btn">View Post →</a>
           ${updatesBtn}
         </div>
-        ${resultHtml}
       </div>
     `;
   }).join("");
 }
 
-// ─── POPUP ────────────────────────────────────────────────────────────────────
 function openPopup(tradeId) {
   const trade = allTrades.find(t => t.id === tradeId);
   if (!trade) return;
@@ -275,17 +374,16 @@ function openPopup(tradeId) {
   document.getElementById("popup-pair").textContent = `${trade.ticker}/USDT · ${trade.timeframe || ""} · ${trade.exchange || ""} · ${trade.trade_type || ""}`;
   document.getElementById("popup-title").textContent = trade.title || "";
 
-  // Build timeline: original + updates
   const allPosts = [
-    { label: "Original Call", date: trade.created_at, img: trade.chart_image, caption: trade.caption, link: trade.x_post },
-    ...updates.map((u, i) => ({ label: u.label || `Update ${i+1}`, date: u.created_at, img: u.chart_image, caption: u.caption, link: u.x_post }))
+    { id: trade.id, label: "Original Call", date: trade.trade_date || trade.created_at, img: trade.chart_image, img2: trade.chart_image_2, caption: trade.caption, link: trade.x_post },
+    ...updates.map((u, i) => ({ id: u.id, label: u.label || `Update ${i+1}`, date: u.created_at, img: u.chart_image, img2: u.chart_image_2, caption: u.caption, link: u.x_post }))
   ];
 
   document.getElementById("popup-body").innerHTML = allPosts.map((p, i) => `
     ${i > 0 ? `<div class="tl-connector">↓ ${p.label}</div>` : ""}
     <div class="timeline-item">
       <div class="tl-label">${i === 0 ? "Original Call" : p.label} · ${formatDate(p.date)}</div>
-      ${p.img ? `<img class="tl-img" src="${p.img}" alt="">` : ""}
+      ${makeCarousel(p.img, p.img2, p.id)}
       ${p.caption ? `<p class="tl-caption">${p.caption}</p>` : ""}
       ${p.link ? `<a class="tl-link" href="${p.link}" target="_blank">View on X →</a>` : ""}
     </div>
@@ -298,28 +396,45 @@ function openPopup(tradeId) {
 function closePopup(e) {
   if (e.target === document.getElementById("popup-overlay")) closePopupDirect();
 }
-
 function closePopupDirect() {
   document.getElementById("popup-overlay").classList.remove("open");
   document.body.style.overflow = "";
 }
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closePopupDirect(); closeReviewDirect(); } });
 
-// Close on Escape
-document.addEventListener("keydown", e => { if (e.key === "Escape") closePopupDirect(); });
+// Review
+function openReview() {
+  document.getElementById("review-overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeReview(e) {
+  if (e.target === document.getElementById("review-overlay")) closeReviewDirect();
+}
+function closeReviewDirect() {
+  document.getElementById("review-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+async function submitReview() {
+  const name = document.getElementById("rev-name").value.trim();
+  const review = document.getElementById("rev-text").value.trim();
+  if (!name || !review) { alert("Please fill both name and review"); return; }
+  const { error } = await sb.from("reviews").insert({ name, review });
+  if (error) { alert("Failed to submit: " + error.message); return; }
+  closeReviewDirect();
+  document.getElementById("rev-name").value = "";
+  document.getElementById("rev-text").value = "";
+  const s = document.getElementById("review-success");
+  s.style.display = "block";
+  setTimeout(() => s.style.display = "none", 4000);
+}
 
-// ─── SEARCH ───────────────────────────────────────────────────────────────────
 function handleSearch() {
   const q = document.getElementById("search-input").value.toLowerCase().trim();
   if (!q) { renderArticles(allArticles); renderTrades(allTrades); return; }
-  renderArticles(allArticles.filter(a =>
-    (a.title||"").toLowerCase().includes(q) || (a.tag||"").toLowerCase().includes(q)
-  ));
-  renderTrades(allTrades.filter(t =>
-    (t.ticker||"").toLowerCase().includes(q) || (t.title||"").toLowerCase().includes(q)
-  ));
+  renderArticles(allArticles.filter(a => (a.title||"").toLowerCase().includes(q) || (a.tag||"").toLowerCase().includes(q)));
+  renderTrades(allTrades.filter(t => (t.ticker||"").toLowerCase().includes(q) || (t.title||"").toLowerCase().includes(q)));
 }
 
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
 function formatDate(str) {
   if (!str) return "";
   return new Date(str).toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
