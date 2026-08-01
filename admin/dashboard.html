@@ -9,81 +9,88 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#080B10;--surface:#0F1318;--card:#131820;--border:#1E2530;--accent:#7B61FF;--accent2:#00E5C3;--text:#E8EDF2;--muted:#5A6470;--dim:#8A94A0}
 body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh}
-.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;font-family:'Space Grotesk',sans-serif}
 input,select,textarea{font-family:'Space Grotesk',sans-serif}
 
-/* NAV */
-.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;gap:12px}
 .nav-brand{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent2);letter-spacing:.1em}
 .nav-links{display:flex;gap:8px}
-.nav-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;color:var(--dim);font-size:12px;font-family:'Space Mono',monospace}
+.nav-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:5px 12px;color:var(--dim);font-size:12px;font-family:'Space Mono',monospace}
 .nav-btn:hover{border-color:var(--accent);color:var(--accent)}
 .nav-btn.danger{border-color:rgba(255,77,77,.3);color:#ff4d4d}
 .saved-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent2);display:none}
 
-/* TABS */
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-top:32px}
-.tab{padding:12px 24px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:color .2s}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-top:24px;overflow-x:auto}
+.tab{padding:11px 18px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* PANELS */
-.panel{display:none;padding:32px 0}
+.panel{display:none;padding:24px 0}
 .panel.active{display:block}
-.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.panel-title{font-size:16px;font-weight:600}
-.btn-add{background:var(--accent);border:none;border-radius:8px;padding:10px 20px;color:#fff;font-size:13px;font-weight:600}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+.panel-title{font-size:15px;font-weight:600}
+.btn-add{background:var(--accent);border:none;border-radius:7px;padding:8px 16px;color:#fff;font-size:12px;font-weight:600}
+.btn-save-order{background:rgba(0,229,195,.12);border:1px solid rgba(0,229,195,.35);border-radius:7px;padding:8px 14px;color:var(--accent2);font-size:12px;font-weight:600;display:none}
+.btn-save-order:hover{background:rgba(0,229,195,.2)}
 
-/* FORM */
-.form-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
-.form-title{font-size:14px;font-weight:600;margin-bottom:20px;color:var(--accent2)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px}
+.form-title{font-size:13px;font-weight:600;margin-bottom:16px;color:var(--accent2)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
-.field{margin-bottom:0}
-.field label{font-size:11px;color:var(--dim);font-family:'Space Mono',monospace;display:block;margin-bottom:4px}
-.field input,.field select,.field textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;outline:none}
+.field label{font-size:10px;color:var(--dim);font-family:'Space Mono',monospace;display:block;margin-bottom:3px;letter-spacing:.04em}
+.field input,.field select,.field textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:8px 11px;color:var(--text);font-size:13px;outline:none}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
-.field textarea{min-height:80px;resize:vertical}
+.field textarea{min-height:70px;resize:vertical}
 .field-full{grid-column:1/-1}
-.img-preview{width:100%;max-height:140px;object-fit:cover;border-radius:8px;margin-bottom:8px;border:1px solid var(--border);display:none}
-.form-btns{display:flex;gap:10px;margin-top:20px}
-.btn-save{flex:1;background:var(--accent);border:none;border-radius:8px;padding:11px;color:#fff;font-size:13px;font-weight:600}
-.btn-cancel{flex:1;background:none;border:1px solid var(--border);border-radius:8px;padding:11px;color:var(--muted);font-size:13px}
+.img-preview{width:100%;max-height:120px;object-fit:cover;border-radius:7px;margin-bottom:6px;border:1px solid var(--border);display:none}
+.img-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.img-row{grid-template-columns:1fr}}
+.form-btns{display:flex;gap:8px;margin-top:16px;align-items:center}
+.btn-save{flex:1;background:var(--accent);border:none;border-radius:7px;padding:10px;color:#fff;font-size:13px;font-weight:600;position:relative}
+.btn-save.loading{opacity:.7;pointer-events:none}
+.btn-save .spinner{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin-right:6px;vertical-align:middle}
+.btn-save.loading .spinner{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-cancel{flex:1;background:none;border:1px solid var(--border);border-radius:7px;padding:10px;color:var(--muted);font-size:13px}
 .btn-cancel:hover{border-color:var(--accent);color:var(--accent)}
+.save-feedback{font-size:12px;color:var(--accent2);margin-top:8px;display:none;font-family:'Space Mono',monospace}
 
-/* POST FORM */
-.post-form{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
-.post-form-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.post-form-label{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent)}
+.post-form{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
+.post-form-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.post-form-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent)}
 .btn-remove-post{background:none;border:none;color:var(--muted);font-size:12px;padding:0}
 .btn-remove-post:hover{color:#ff4d4d}
-.btn-add-update{width:100%;background:none;border:1px dashed var(--border);border-radius:8px;padding:10px;color:var(--muted);font-size:13px;margin-bottom:16px}
+.btn-add-update{width:100%;background:none;border:1px dashed var(--border);border-radius:7px;padding:9px;color:var(--muted);font-size:12px;margin-bottom:12px}
 .btn-add-update:hover{border-color:var(--accent);color:var(--accent)}
 
-/* ITEM LIST */
-.item-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
-.item-thumb{width:60px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;background:var(--surface)}
+.item-row{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:border-color .15s}
+.item-row:hover{border-color:rgba(123,97,255,.35)}
+.item-thumb{width:52px;height:36px;object-fit:cover;border-radius:5px;flex-shrink:0;background:var(--surface)}
 .item-info{flex:1;min-width:0}
 .item-title{font-size:13px;font-weight:600;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.item-meta{font-size:11px;color:var(--muted);font-family:'Space Mono',monospace}
-.item-actions{display:flex;gap:8px;flex-shrink:0}
-.btn-edit{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;color:var(--dim);font-size:12px}
+.item-meta{font-size:10px;color:var(--muted);font-family:'Space Mono',monospace}
+.item-actions{display:flex;gap:6px;flex-shrink:0}
+.btn-edit,.btn-del,.btn-order{background:none;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--dim)}
 .btn-edit:hover{border-color:var(--accent);color:var(--accent)}
-.btn-del{background:none;border:1px solid rgba(255,77,77,.3);border-radius:8px;padding:6px 14px;color:#ff4d4d;font-size:12px}
-.btn-order{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--dim);font-size:14px;line-height:1}
+.btn-del{border-color:rgba(255,77,77,.3);color:#ff4d4d}
+.btn-order{padding:5px 8px;font-size:13px;line-height:1}
 .btn-order:hover{border-color:var(--accent);color:var(--accent)}
-.empty-msg{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);padding:24px 0}
-.loading-msg{font-family:'Space Mono',monospace;font-size:12px;color:var(--muted);animation:pulse 1.5s infinite}
+.empty-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:20px 0}
+.loading-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* STATUS TOGGLE */
-.status-group{display:flex;gap:8px;flex-wrap:wrap}
-.status-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:7px 14px;color:var(--muted);font-size:12px;font-family:'Space Mono',monospace}
+.status-group{display:flex;gap:6px;flex-wrap:wrap}
+.status-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:6px 12px;color:var(--muted);font-size:11px;font-family:'Space Mono',monospace}
 .status-btn.active-open{background:rgba(0,229,195,.1);color:#00e5a0;border-color:rgba(0,229,195,.3)}
 .status-btn.active-win{background:rgba(0,229,195,.1);color:var(--accent2);border-color:rgba(0,229,195,.3)}
 .status-btn.active-loss{background:rgba(255,77,77,.1);color:#ff4d4d;border-color:rgba(255,77,77,.3)}
+
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
+.review-name{font-size:13px;font-weight:600;margin-bottom:4px}
+.review-date{font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:8px}
+.review-text{font-size:13px;color:var(--dim);line-height:1.5}
 </style>
 </head>
 <body>
@@ -91,7 +98,7 @@ input,select,textarea{font-family:'Space Grotesk',sans-serif}
 <nav class="nav">
   <div class="nav-inner">
     <span class="nav-brand">POW · ADMIN</span>
-    <div style="display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:10px">
       <span class="saved-msg" id="saved-msg">✓ Saved</span>
       <div class="nav-links">
         <button class="nav-btn" onclick="location.href='../'">← View Site</button>
@@ -105,26 +112,41 @@ input,select,textarea{font-family:'Space Grotesk',sans-serif}
   <div class="tabs">
     <button class="tab active" onclick="switchTab('articles')">✍️ Articles (<span id="art-count">0</span>)</button>
     <button class="tab" onclick="switchTab('trades')">📊 Trades (<span id="trade-count">0</span>)</button>
+    <button class="tab" onclick="switchTab('reviews')">💬 Reviews (<span id="rev-count">0</span>)</button>
   </div>
 
-  <!-- ARTICLES PANEL -->
+  <!-- ARTICLES -->
   <div class="panel active" id="panel-articles">
     <div class="panel-header">
       <h2 class="panel-title">Writing Pieces</h2>
-      <button class="btn-add" onclick="openArticleForm()">+ Add Article</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn-save-order" id="save-order-articles" onclick="saveArticleOrder()">Save Order</button>
+        <button class="btn-add" onclick="openArticleForm()">+ Add Article</button>
+      </div>
     </div>
     <div id="article-form-wrap"></div>
     <div id="article-list"><p class="loading-msg">Loading...</p></div>
   </div>
 
-  <!-- TRADES PANEL -->
+  <!-- TRADES -->
   <div class="panel" id="panel-trades">
     <div class="panel-header">
       <h2 class="panel-title">Trade Records</h2>
-      <button class="btn-add" onclick="openTradeForm()">+ Add Trade</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn-save-order" id="save-order-trades" onclick="saveTradeOrder()">Save Order</button>
+        <button class="btn-add" onclick="openTradeForm()">+ Add Trade</button>
+      </div>
     </div>
     <div id="trade-form-wrap"></div>
     <div id="trade-list"><p class="loading-msg">Loading...</p></div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="panel" id="panel-reviews">
+    <div class="panel-header">
+      <h2 class="panel-title">Submitted Reviews</h2>
+    </div>
+    <div id="review-list"><p class="loading-msg">Loading...</p></div>
   </div>
 </div>
 
@@ -135,55 +157,61 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let articles = [];
 let trades = [];
+let reviews = [];
 let editingArticleId = null;
 let editingTradeId = null;
 let tradePostForms = [];
 let currentTradeStatus = "open";
+let articlesOrderDirty = false;
+let tradesOrderDirty = false;
 
-// ─── AUTH ─────────────────────────────────────────────────────────────────────
 async function checkAuth() {
   const { data } = await sb.auth.getSession();
   if (!data.session) location.href = "index.html";
 }
-
 async function logout() {
   await sb.auth.signOut();
   location.href = "index.html";
 }
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
 function switchTab(tab) {
-  document.querySelectorAll(".tab").forEach((t, i) => t.classList.toggle("active", (i === 0 && tab === "articles") || (i === 1 && tab === "trades")));
+  document.querySelectorAll(".tab").forEach((t, i) => {
+    const map = ["articles","trades","reviews"];
+    t.classList.toggle("active", map[i] === tab);
+  });
   document.getElementById("panel-articles").classList.toggle("active", tab === "articles");
   document.getElementById("panel-trades").classList.toggle("active", tab === "trades");
+  document.getElementById("panel-reviews").classList.toggle("active", tab === "reviews");
 }
 
-// ─── FLASH ────────────────────────────────────────────────────────────────────
 function flash() {
   const el = document.getElementById("saved-msg");
   el.style.display = "inline";
   setTimeout(() => el.style.display = "none", 2000);
 }
 
-// ─── LOAD ─────────────────────────────────────────────────────────────────────
 async function loadArticles() {
   const { data } = await sb.from("articles").select("*").order("position", { ascending: true });
   articles = data || [];
   document.getElementById("art-count").textContent = articles.length;
   renderArticleList();
 }
-
 async function loadTrades() {
   const { data } = await sb.from("trades").select("*, trade_updates(*)").order("position", { ascending: true });
   trades = data || [];
   document.getElementById("trade-count").textContent = trades.length;
   renderTradeList();
 }
+async function loadReviews() {
+  const { data } = await sb.from("reviews").select("*").order("created_at", { ascending: false });
+  reviews = data || [];
+  document.getElementById("rev-count").textContent = reviews.length;
+  renderReviewList();
+}
 
-// ─── IMAGE UPLOAD ─────────────────────────────────────────────────────────────
 async function uploadImage(file, bucket) {
   const ext = file.name.split(".").pop();
-  const path = `${Date.now()}.${ext}`;
+  const path = `${Date.now()}_${Math.random().toString(36).slice(2,7)}.${ext}`;
   const { error } = await sb.storage.from(bucket).upload(path, file);
   if (error) throw error;
   const { data } = sb.storage.from(bucket).getPublicUrl(path);
@@ -201,7 +229,7 @@ function previewImg(input, previewId) {
   reader.readAsDataURL(file);
 }
 
-// ─── ARTICLE FORM ─────────────────────────────────────────────────────────────
+// ─── ARTICLES ─────────────────────────────────────────────────────────────────
 function openArticleForm(id) {
   editingArticleId = id || null;
   const a = id ? articles.find(x => x.id === id) : null;
@@ -210,25 +238,23 @@ function openArticleForm(id) {
       <p class="form-title">${a ? "Edit Article" : "New Article"}</p>
       <div class="form-grid">
         <div class="field field-full">
-          <label>THUMBNAIL IMAGE</label>
+          <label>THUMBNAIL</label>
           <img id="a-img-preview" class="img-preview" src="${a?.thumbnail || ""}" style="${a?.thumbnail ? "display:block" : ""}">
           <input type="file" accept="image/*" onchange="previewImg(this,'a-img-preview')" style="font-size:12px;color:var(--dim);width:100%">
-          <input type="hidden" id="a-img-file" data-bucket="thumbnails">
         </div>
         <div class="field field-full"><label>TITLE</label><input id="a-title" value="${a?.title || ""}" placeholder="Article title..."></div>
         <div class="field"><label>TAG</label><input id="a-tag" value="${a?.tag || ""}" placeholder="Medium · KiiChain"></div>
-        <div class="field"><label>DATE (leave blank for today)</label><input id="a-date" value="${a?.published_at ? a.published_at.split('T')[0] : ""}" type="date"></div>
+        <div class="field"><label>DATE</label><input id="a-date" value="${a?.published_at ? a.published_at.split('T')[0] : ""}" type="date"></div>
         <div class="field field-full"><label>ARTICLE URL</label><input id="a-url" value="${a?.article_url || ""}" placeholder="https://..."></div>
         <div class="field field-full"><label>SUMMARY (optional)</label><textarea id="a-summary" placeholder="Brief description...">${a?.summary || ""}</textarea></div>
       </div>
       <div class="form-btns">
-        <button class="btn-save" onclick="saveArticle()">Save Article</button>
+        <button class="btn-save" id="btn-save-article" onclick="saveArticle()"><span class="spinner"></span>Save Article</button>
         <button class="btn-cancel" onclick="closeArticleForm()">Cancel</button>
       </div>
+      <p class="save-feedback" id="article-feedback">✓ Saved successfully</p>
     </div>
   `;
-
-  // Store existing thumbnail
   if (a?.thumbnail) document.getElementById("a-img-preview").dataset.existing = a.thumbnail;
 }
 
@@ -238,13 +264,18 @@ function closeArticleForm() {
 }
 
 async function saveArticle() {
+  const btn = document.getElementById("btn-save-article");
+  const feedback = document.getElementById("article-feedback");
+  btn.classList.add("loading");
+  feedback.style.display = "none";
+
   const fileInput = document.querySelector('#article-form-wrap input[type="file"]');
   const previewEl = document.getElementById("a-img-preview");
   let thumbnail = previewEl?.dataset.existing || null;
 
   if (fileInput?.files[0]) {
     try { thumbnail = await uploadImage(fileInput.files[0], "thumbnails"); }
-    catch(e) { alert("Image upload failed: " + e.message); return; }
+    catch(e) { alert("Image upload failed: " + e.message); btn.classList.remove("loading"); return; }
   }
 
   const payload = {
@@ -257,18 +288,21 @@ async function saveArticle() {
     updated_at: new Date().toISOString(),
   };
 
-  if (editingArticleId) {
-    await sb.from("articles").update(payload).eq("id", editingArticleId);
-  } else {
-    // Assign next position so reorder works from day 1
-    const maxPos = articles.reduce((m, a) => Math.max(m, a.position || 0), 0);
-    payload.position = maxPos + 1;
-    await sb.from("articles").insert(payload);
+  try {
+    if (editingArticleId) {
+      await sb.from("articles").update(payload).eq("id", editingArticleId);
+    } else {
+      const maxPos = articles.reduce((m, a) => Math.max(m, a.position || 0), 0);
+      payload.position = maxPos + 1;
+      await sb.from("articles").insert(payload);
+    }
+    feedback.style.display = "block";
+    flash();
+    setTimeout(() => { closeArticleForm(); loadArticles(); }, 800);
+  } catch(e) {
+    alert("Save failed: " + e.message);
   }
-
-  flash();
-  closeArticleForm();
-  await loadArticles();
+  btn.classList.remove("loading");
 }
 
 async function deleteArticle(id) {
@@ -279,7 +313,7 @@ async function deleteArticle(id) {
 
 function renderArticleList() {
   const list = document.getElementById("article-list");
-  if (!articles.length) { list.innerHTML = '<p class="empty-msg">No articles yet. Add your first one above.</p>'; return; }
+  if (!articles.length) { list.innerHTML = '<p class="empty-msg">No articles yet.</p>'; return; }
   list.innerHTML = articles.map(a => `
     <div class="item-row">
       ${a.thumbnail ? `<img class="item-thumb" src="${a.thumbnail}" alt="">` : `<div class="item-thumb"></div>`}
@@ -291,19 +325,46 @@ function renderArticleList() {
         <button class="btn-order" onclick="moveArticle('${a.id}',-1)">↑</button>
         <button class="btn-order" onclick="moveArticle('${a.id}',1)">↓</button>
         <button class="btn-edit" onclick="openArticleForm('${a.id}')">Edit</button>
-        <button class="btn-del" onclick="deleteArticle('${a.id}')">Delete</button>
+        <button class="btn-del" onclick="deleteArticle('${a.id}')">Del</button>
       </div>
     </div>
   `).join("");
 }
 
-// ─── TRADE FORM ───────────────────────────────────────────────────────────────
+function moveArticle(id, dir) {
+  const idx = articles.findIndex(a => a.id === id);
+  const swapIdx = idx + dir;
+  if (swapIdx < 0 || swapIdx >= articles.length) return;
+  [articles[idx], articles[swapIdx]] = [articles[swapIdx], articles[idx]];
+  renderArticleList();
+  articlesOrderDirty = true;
+  document.getElementById("save-order-articles").style.display = "inline-block";
+}
+
+async function saveArticleOrder() {
+  const btn = document.getElementById("save-order-articles");
+  btn.textContent = "Saving...";
+  btn.disabled = true;
+  for (let i = 0; i < articles.length; i++) {
+    await sb.from("articles").update({ position: i + 1 }).eq("id", articles[i].id);
+  }
+  articlesOrderDirty = false;
+  btn.textContent = "Save Order";
+  btn.style.display = "none";
+  btn.disabled = false;
+  flash();
+}
+
+// ─── TRADES ───────────────────────────────────────────────────────────────────
 function openTradeForm(id) {
   editingTradeId = id || null;
   const t = id ? trades.find(x => x.id === id) : null;
   currentTradeStatus = t?.status || "open";
   tradePostForms = t?.trade_updates
-    ? t.trade_updates.map(u => ({ id: u.id, label: u.label, caption: u.caption, x_post: u.x_post, existingImg: u.chart_image }))
+    ? t.trade_updates.sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)).map(u => ({
+        id: u.id, label: u.label, caption: u.caption, x_post: u.x_post,
+        existingImg: u.chart_image, existingImg2: u.chart_image_2
+      }))
     : [];
   renderTradeFormHTML(t);
 }
@@ -322,11 +383,12 @@ function renderTradeFormHTML(t) {
             <option value="Spot" ${t?.trade_type==="Spot"?"selected":""}>Spot</option>
           </select>
         </div>
+        <div class="field"><label>TRADE DATE</label><input id="tf-date" type="date" value="${t?.trade_date ? t.trade_date.split('T')[0] : ""}"></div>
         <div class="field field-full"><label>STATUS</label>
           <div class="status-group">
             <button class="status-btn ${currentTradeStatus==="open"?"active-open":""}" onclick="setStatus('open')">🟢 Open</button>
-            <button class="status-btn ${currentTradeStatus==="closed_win"?"active-win":""}" onclick="setStatus('closed_win')">✅ Closed · Win</button>
-            <button class="status-btn ${currentTradeStatus==="closed_loss"?"active-loss":""}" onclick="setStatus('closed_loss')">❌ Closed · Loss</button>
+            <button class="status-btn ${currentTradeStatus==="closed_win"?"active-win":""}" onclick="setStatus('closed_win')">✅ Win</button>
+            <button class="status-btn ${currentTradeStatus==="closed_loss"?"active-loss":""}" onclick="setStatus('closed_loss')">❌ Loss</button>
           </div>
         </div>
         <div class="field field-full" id="roi-wrap" style="${currentTradeStatus!=="open"?"":"display:none"}">
@@ -334,23 +396,36 @@ function renderTradeFormHTML(t) {
         </div>
         <div class="field field-full"><label>TRADE TITLE</label><input id="tf-title" value="${t?.title || ""}" placeholder="Describe the setup..."></div>
         <div class="field field-full">
-          <label>ORIGINAL CHART IMAGE</label>
-          <img id="tf-img-preview" class="img-preview" src="${t?.chart_image || ""}" style="${t?.chart_image?"display:block":""}">
-          <input type="file" accept="image/*" onchange="previewImg(this,'tf-img-preview')" style="font-size:12px;color:var(--dim);width:100%">
+          <label>CHART IMAGES (max 2)</label>
+          <div class="img-row">
+            <div>
+              <img id="tf-img-preview" class="img-preview" src="${t?.chart_image || ""}" style="${t?.chart_image?"display:block":""}">
+              <input type="file" accept="image/*" onchange="previewImg(this,'tf-img-preview')" style="font-size:11px;color:var(--dim);width:100%">
+              <span style="font-size:10px;color:var(--muted)">Image 1 (main)</span>
+            </div>
+            <div>
+              <img id="tf-img2-preview" class="img-preview" src="${t?.chart_image_2 || ""}" style="${t?.chart_image_2?"display:block":""}">
+              <input type="file" accept="image/*" onchange="previewImg(this,'tf-img2-preview')" style="font-size:11px;color:var(--dim);width:100%">
+              <span style="font-size:10px;color:var(--muted)">Image 2 (swipe)</span>
+            </div>
+          </div>
         </div>
-        <div class="field field-full"><label>ORIGINAL CAPTION</label><textarea id="tf-caption" placeholder="What happened...">${t?.caption || ""}</textarea></div>
-        <div class="field field-full"><label>X POST LINK (Original)</label><input id="tf-xpost" value="${t?.x_post || ""}" placeholder="https://x.com/i/status/..."></div>
+        <div class="field field-full"><label>CAPTION</label><textarea id="tf-caption" placeholder="Describe the trade setup...">${t?.caption || ""}</textarea></div>
+        <div class="field field-full"><label>X POST LINK</label><input id="tf-xpost" value="${t?.x_post || ""}" placeholder="https://x.com/i/status/..."></div>
       </div>
 
       <div id="update-posts-wrap"></div>
-      <button class="btn-add-update" onclick="addUpdatePost()">+ Add Update Post</button>
+      <button class="btn-add-update" onclick="addUpdatePost()">+ Add Update</button>
 
       <div class="form-btns">
-        <button class="btn-save" onclick="saveTrade()">Save Trade</button>
+        <button class="btn-save" id="btn-save-trade" onclick="saveTrade()"><span class="spinner"></span>Save Trade</button>
         <button class="btn-cancel" onclick="closeTradeForm()">Cancel</button>
       </div>
+      <p class="save-feedback" id="trade-feedback">✓ Saved successfully</p>
     </div>
   `;
+  if (t?.chart_image) document.getElementById("tf-img-preview").dataset.existing = t.chart_image;
+  if (t?.chart_image_2) document.getElementById("tf-img2-preview").dataset.existing = t.chart_image_2;
   renderUpdatePosts();
 }
 
@@ -362,10 +437,9 @@ function setStatus(status) {
 }
 
 function addUpdatePost() {
-  tradePostForms.push({ id: null, label: `Update ${tradePostForms.length + 1}`, caption: "", x_post: "", existingImg: null });
+  tradePostForms.push({ id: null, label: `Update ${tradePostForms.length + 1}`, caption: "", x_post: "", existingImg: null, existingImg2: null });
   renderUpdatePosts();
 }
-
 function removeUpdatePost(i) {
   tradePostForms.splice(i, 1);
   renderUpdatePosts();
@@ -378,14 +452,22 @@ function renderUpdatePosts() {
         <span class="post-form-label">UPDATE ${i + 1}</span>
         <button class="btn-remove-post" onclick="removeUpdatePost(${i})">✕ Remove</button>
       </div>
-      <div class="field" style="margin-bottom:12px"><label>LABEL</label><input id="up-label-${i}" value="${p.label}" placeholder="Update 1"></div>
-      <div class="field" style="margin-bottom:12px">
-        <label>CHART IMAGE</label>
-        <img id="up-img-preview-${i}" class="img-preview" src="${p.existingImg || ""}" style="${p.existingImg?"display:block":""}">
-        <input type="file" accept="image/*" onchange="previewImg(this,'up-img-preview-${i}')" style="font-size:12px;color:var(--dim);width:100%">
+      <div class="field" style="margin-bottom:10px"><label>LABEL</label><input id="up-label-${i}" value="${p.label}" placeholder="Update 1"></div>
+      <div class="field" style="margin-bottom:10px">
+        <label>IMAGES (max 2)</label>
+        <div class="img-row">
+          <div>
+            <img id="up-img-preview-${i}" class="img-preview" src="${p.existingImg || ""}" style="${p.existingImg?"display:block":""}">
+            <input type="file" accept="image/*" onchange="previewImg(this,'up-img-preview-${i}')" style="font-size:11px;color:var(--dim);width:100%">
+          </div>
+          <div>
+            <img id="up-img2-preview-${i}" class="img-preview" src="${p.existingImg2 || ""}" style="${p.existingImg2?"display:block":""}">
+            <input type="file" accept="image/*" onchange="previewImg(this,'up-img2-preview-${i}')" style="font-size:11px;color:var(--dim);width:100%">
+          </div>
+        </div>
       </div>
-      <div class="field" style="margin-bottom:12px"><label>CAPTION</label><textarea id="up-caption-${i}" placeholder="What happened...">${p.caption}</textarea></div>
-      <div class="field"><label>X POST LINK</label><input id="up-xpost-${i}" value="${p.x_post}" placeholder="https://x.com/i/status/..."></div>
+      <div class="field" style="margin-bottom:10px"><label>CAPTION</label><textarea id="up-caption-${i}" placeholder="What happened...">${p.caption || ""}</textarea></div>
+      <div class="field"><label>X POST LINK</label><input id="up-xpost-${i}" value="${p.x_post || ""}" placeholder="https://x.com/i/status/..."></div>
     </div>
   `).join("");
 }
@@ -397,14 +479,22 @@ function closeTradeForm() {
 }
 
 async function saveTrade() {
-  // Upload original chart if new file selected
-  const origFileInputs = document.querySelectorAll('#trade-form-wrap input[type="file"]');
-  const origFileInput = origFileInputs[0];
-  let chartImage = document.getElementById("tf-img-preview")?.src?.startsWith("http")
-    ? document.getElementById("tf-img-preview").src : null;
-  if (origFileInput?.files[0]) {
-    try { chartImage = await uploadImage(origFileInput.files[0], "charts"); }
-    catch(e) { alert("Image upload failed: " + e.message); return; }
+  const btn = document.getElementById("btn-save-trade");
+  const feedback = document.getElementById("trade-feedback");
+  btn.classList.add("loading");
+  feedback.style.display = "none";
+
+  // Original images
+  let chartImage = document.getElementById("tf-img-preview")?.dataset.existing || null;
+  let chartImage2 = document.getElementById("tf-img2-preview")?.dataset.existing || null;
+
+  const fileInputs = document.querySelectorAll('#trade-form-wrap > .form-box > .form-grid input[type="file"]');
+  // First two are original images
+  if (fileInputs[0]?.files[0]) {
+    try { chartImage = await uploadImage(fileInputs[0].files[0], "charts"); } catch(e) { alert(e.message); btn.classList.remove("loading"); return; }
+  }
+  if (fileInputs[1]?.files[0]) {
+    try { chartImage2 = await uploadImage(fileInputs[1].files[0], "charts"); } catch(e) { alert(e.message); btn.classList.remove("loading"); return; }
   }
 
   const tradePayload = {
@@ -416,47 +506,61 @@ async function saveTrade() {
     roi: document.getElementById("tf-roi")?.value || null,
     title: document.getElementById("tf-title").value,
     chart_image: chartImage,
+    chart_image_2: chartImage2,
     caption: document.getElementById("tf-caption").value,
     x_post: document.getElementById("tf-xpost").value,
+    trade_date: document.getElementById("tf-date").value || null,
     updated_at: new Date().toISOString(),
   };
 
-  let tradeId = editingTradeId;
-  if (editingTradeId) {
-    await sb.from("trades").update(tradePayload).eq("id", editingTradeId);
-    // Delete old updates
-    await sb.from("trade_updates").delete().eq("trade_id", editingTradeId);
-  } else {
-    const maxPos = trades.reduce((m, t) => Math.max(m, t.position || 0), 0);
-    tradePayload.position = maxPos + 1;
-    const { data } = await sb.from("trades").insert(tradePayload).select();
-    tradeId = data[0].id;
-  }
-
-  // Save update posts
-  for (let i = 0; i < tradePostForms.length; i++) {
-    const fileInput = origFileInputs[i + 1];
-    let upImg = tradePostForms[i].existingImg;
-    if (fileInput?.files[0]) {
-      try { upImg = await uploadImage(fileInput.files[0], "charts"); }
-      catch(e) { console.error("Update image upload failed", e); }
+  try {
+    let tradeId = editingTradeId;
+    if (editingTradeId) {
+      await sb.from("trades").update(tradePayload).eq("id", editingTradeId);
+      await sb.from("trade_updates").delete().eq("trade_id", editingTradeId);
+    } else {
+      const maxPos = trades.reduce((m, t) => Math.max(m, t.position || 0), 0);
+      tradePayload.position = maxPos + 1;
+      const { data } = await sb.from("trades").insert(tradePayload).select();
+      tradeId = data[0].id;
     }
-    await sb.from("trade_updates").insert({
-      trade_id: tradeId,
-      label: document.getElementById(`up-label-${i}`)?.value || `Update ${i+1}`,
-      chart_image: upImg,
-      caption: document.getElementById(`up-caption-${i}`)?.value || "",
-      x_post: document.getElementById(`up-xpost-${i}`)?.value || "",
-    });
-  }
 
-  flash();
-  closeTradeForm();
-  await loadTrades();
+    // Updates – each has 2 potential images
+    for (let i = 0; i < tradePostForms.length; i++) {
+      const upFile1 = document.querySelector(`#up-img-preview-${i}`)?.closest('div')?.querySelector('input[type="file"]');
+      const upFile2 = document.querySelector(`#up-img2-preview-${i}`)?.closest('div')?.querySelector('input[type="file"]');
+
+      let upImg = tradePostForms[i].existingImg;
+      let upImg2 = tradePostForms[i].existingImg2;
+
+      if (upFile1?.files[0]) {
+        try { upImg = await uploadImage(upFile1.files[0], "charts"); } catch(e) {}
+      }
+      if (upFile2?.files[0]) {
+        try { upImg2 = await uploadImage(upFile2.files[0], "charts"); } catch(e) {}
+      }
+
+      await sb.from("trade_updates").insert({
+        trade_id: tradeId,
+        label: document.getElementById(`up-label-${i}`)?.value || `Update ${i+1}`,
+        chart_image: upImg,
+        chart_image_2: upImg2,
+        caption: document.getElementById(`up-caption-${i}`)?.value || "",
+        x_post: document.getElementById(`up-xpost-${i}`)?.value || "",
+      });
+    }
+
+    feedback.style.display = "block";
+    flash();
+    setTimeout(() => { closeTradeForm(); loadTrades(); }, 800);
+  } catch(e) {
+    alert("Save failed: " + e.message);
+  }
+  btn.classList.remove("loading");
 }
 
 async function deleteTrade(id) {
-  if (!confirm("Delete this trade and all its updates?")) return;
+  if (!confirm("Delete this trade and all updates?")) return;
   await sb.from("trade_updates").delete().eq("trade_id", id);
   await sb.from("trades").delete().eq("id", id);
   await loadTrades();
@@ -464,68 +568,70 @@ async function deleteTrade(id) {
 
 function renderTradeList() {
   const list = document.getElementById("trade-list");
-  if (!trades.length) { list.innerHTML = '<p class="empty-msg">No trades yet. Add your first one above.</p>'; return; }
+  if (!trades.length) { list.innerHTML = '<p class="empty-msg">No trades yet.</p>'; return; }
   list.innerHTML = trades.map(t => `
     <div class="item-row">
       ${t.chart_image ? `<img class="item-thumb" src="${t.chart_image}" alt="">` : `<div class="item-thumb"></div>`}
       <div class="item-info">
         <p class="item-title">${t.ticker}/USDT · ${t.title || ""}</p>
-        <p class="item-meta">${t.status === "open" ? "🟢 Open" : t.status === "closed_win" ? "✅ Win" : "❌ Loss"} · ${(t.trade_updates || []).length} update${(t.trade_updates || []).length !== 1 ? "s" : ""}</p>
+        <p class="item-meta">${t.status === "open" ? "🟢 Open" : t.status === "closed_win" ? "✅ Win" : "❌ Loss"} · ${(t.trade_updates || []).length} updates · ${formatDate(t.trade_date || t.created_at)}</p>
       </div>
       <div class="item-actions">
         <button class="btn-order" onclick="moveTrade('${t.id}',-1)">↑</button>
         <button class="btn-order" onclick="moveTrade('${t.id}',1)">↓</button>
         <button class="btn-edit" onclick="openTradeForm('${t.id}')">Edit</button>
-        <button class="btn-del" onclick="deleteTrade('${t.id}')">Delete</button>
+        <button class="btn-del" onclick="deleteTrade('${t.id}')">Del</button>
       </div>
     </div>
   `).join("");
 }
 
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function moveTrade(id, dir) {
+  const idx = trades.findIndex(t => t.id === id);
+  const swapIdx = idx + dir;
+  if (swapIdx < 0 || swapIdx >= trades.length) return;
+  [trades[idx], trades[swapIdx]] = [trades[swapIdx], trades[idx]];
+  renderTradeList();
+  tradesOrderDirty = true;
+  document.getElementById("save-order-trades").style.display = "inline-block";
+}
+
+async function saveTradeOrder() {
+  const btn = document.getElementById("save-order-trades");
+  btn.textContent = "Saving...";
+  btn.disabled = true;
+  for (let i = 0; i < trades.length; i++) {
+    await sb.from("trades").update({ position: i + 1 }).eq("id", trades[i].id);
+  }
+  tradesOrderDirty = false;
+  btn.textContent = "Save Order";
+  btn.style.display = "none";
+  btn.disabled = false;
+  flash();
+}
+
+// ─── REVIEWS ──────────────────────────────────────────────────────────────────
+function renderReviewList() {
+  const list = document.getElementById("review-list");
+  if (!reviews.length) { list.innerHTML = '<p class="empty-msg">No reviews yet.</p>'; return; }
+  list.innerHTML = reviews.map(r => `
+    <div class="review-card">
+      <p class="review-name">${r.name || "Anonymous"}</p>
+      <p class="review-date">${formatDate(r.created_at)}</p>
+      <p class="review-text">${r.review}</p>
+    </div>
+  `).join("");
+}
+
 function formatDate(str) {
   if (!str) return "";
   return new Date(str).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
 (async () => {
   await checkAuth();
-  await Promise.all([loadArticles(), loadTrades()]);
+  await Promise.all([loadArticles(), loadTrades(), loadReviews()]);
 })();
-
-async function moveArticle(id, dir) {
-  // First normalize all positions to clean sequential numbers
-  for (let i = 0; i < articles.length; i++) {
-    await sb.from("articles").update({ position: i + 1 }).eq("id", articles[i].id);
-    articles[i].position = i + 1;
-  }
-  const idx = articles.findIndex(a => a.id === id);
-  const swapIdx = idx + dir;
-  if (swapIdx < 0 || swapIdx >= articles.length) return;
-  const posA = idx + 1;
-  const posB = swapIdx + 1;
-  await sb.from("articles").update({ position: posB }).eq("id", articles[idx].id);
-  await sb.from("articles").update({ position: posA }).eq("id", articles[swapIdx].id);
-  await loadArticles();
-}
-
-async function moveTrade(id, dir) {
-  // First normalize all positions to clean sequential numbers
-  for (let i = 0; i < trades.length; i++) {
-    await sb.from("trades").update({ position: i + 1 }).eq("id", trades[i].id);
-    trades[i].position = i + 1;
-  }
-  const idx = trades.findIndex(t => t.id === id);
-  const swapIdx = idx + dir;
-  if (swapIdx < 0 || swapIdx >= trades.length) return;
-  const posA = idx + 1;
-  const posB = swapIdx + 1;
-  await sb.from("trades").update({ position: posB }).eq("id", trades[idx].id);
-  await sb.from("trades").update({ position: posA }).eq("id", trades[swapIdx].id);
-  await loadTrades();
-}
-
 </script>
 </body>
 </html>
