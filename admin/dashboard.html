@@ -260,6 +260,9 @@ async function saveArticle() {
   if (editingArticleId) {
     await sb.from("articles").update(payload).eq("id", editingArticleId);
   } else {
+    // Assign next position so reorder works from day 1
+    const maxPos = articles.reduce((m, a) => Math.max(m, a.position || 0), 0);
+    payload.position = maxPos + 1;
     await sb.from("articles").insert(payload);
   }
 
@@ -282,7 +285,7 @@ function renderArticleList() {
       ${a.thumbnail ? `<img class="item-thumb" src="${a.thumbnail}" alt="">` : `<div class="item-thumb"></div>`}
       <div class="item-info">
         <p class="item-title">${a.title}</p>
-        <p class="item-meta">${a.tag || ""} · ${formatDate(a.published_at)} · ❤️ ${a.views || 0}</p>
+        <p class="item-meta">${a.tag || ""} · ${formatDate(a.published_at)}</p>
       </div>
       <div class="item-actions">
         <button class="btn-order" onclick="moveArticle('${a.id}',-1)">↑</button>
@@ -335,7 +338,7 @@ function renderTradeFormHTML(t) {
           <img id="tf-img-preview" class="img-preview" src="${t?.chart_image || ""}" style="${t?.chart_image?"display:block":""}">
           <input type="file" accept="image/*" onchange="previewImg(this,'tf-img-preview')" style="font-size:12px;color:var(--dim);width:100%">
         </div>
-        <div class="field field-full"><label>ORIGINAL CAPTION</label><textarea id="tf-caption" placeholder="Describe the trade setup...">${t?.caption || ""}</textarea></div>
+        <div class="field field-full"><label>ORIGINAL CAPTION</label><textarea id="tf-caption" placeholder="What happened...">${t?.caption || ""}</textarea></div>
         <div class="field field-full"><label>X POST LINK (Original)</label><input id="tf-xpost" value="${t?.x_post || ""}" placeholder="https://x.com/i/status/..."></div>
       </div>
 
@@ -424,6 +427,8 @@ async function saveTrade() {
     // Delete old updates
     await sb.from("trade_updates").delete().eq("trade_id", editingTradeId);
   } else {
+    const maxPos = trades.reduce((m, t) => Math.max(m, t.position || 0), 0);
+    tradePayload.position = maxPos + 1;
     const { data } = await sb.from("trades").insert(tradePayload).select();
     tradeId = data[0].id;
   }
