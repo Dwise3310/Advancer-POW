@@ -45,13 +45,11 @@ section:last-of-type{border-bottom:none}
 .w-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .w-thumb{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top;display:block}
 .w-thumb-empty{width:100%;aspect-ratio:3/2;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.05em}
-.w-body{padding:10px 12px 32px;flex:1;display:flex;flex-direction:column;gap:3px}
+.w-body{padding:10px 12px 12px;flex:1;display:flex;flex-direction:column;gap:3px}
 .w-tag{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2)}
 .w-title{font-size:12px;font-weight:600;line-height:1.35;color:var(--text)}
 .w-date{font-size:10px;color:var(--muted);margin-top:auto;padding-top:6px}
-.w-footer{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-top:1px solid var(--border);background:var(--card)}
-.w-likes{display:flex;align-items:center;gap:4px;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);cursor:pointer;transition:color .2s;background:none;border:none;padding:0}
-.w-likes:hover,.w-likes.liked{color:#ff6b9d}
+.w-footer{padding:7px 12px;border-top:1px solid var(--border);background:var(--card);display:flex;justify-content:flex-end}
 .w-cta{background:var(--accent);color:#fff;font-size:9px;font-family:'Space Mono',monospace;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.05em}
 
 /* TRADE GRID */
@@ -179,7 +177,6 @@ section:last-of-type{border-bottom:none}
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let allArticles = [];
 let allTrades = [];
-let likedArticles = JSON.parse(localStorage.getItem("liked_articles") || "[]");
 
 // ─── LOAD ─────────────────────────────────────────────────────────────────────
 async function loadAll() {
@@ -187,7 +184,7 @@ async function loadAll() {
 }
 
 async function loadArticles() {
-  const { data } = await sb.from("articles").select("*").order("published_at", { ascending: false });
+  const { data } = await sb.from("articles").select("*").order("position", { ascending: true });
   document.getElementById("writing-loading").style.display = "none";
   allArticles = data || [];
   renderArticles(allArticles);
@@ -206,9 +203,7 @@ function renderArticles(items) {
   const empty = document.getElementById("writing-empty");
   if (!items.length) { grid.innerHTML = ""; empty.style.display = "block"; return; }
   empty.style.display = "none";
-  grid.innerHTML = items.map(a => {
-    const liked = likedArticles.includes(a.id);
-    return `
+  grid.innerHTML = items.map(a => `
       <a class="w-card" href="${a.article_url || '#'}" target="_blank">
         ${a.thumbnail
           ? `<img class="w-thumb" src="${a.thumbnail}" alt="${a.title}">`
@@ -219,14 +214,10 @@ function renderArticles(items) {
           <p class="w-date">${formatDate(a.published_at)}</p>
         </div>
         <div class="w-footer">
-          <button class="w-likes ${liked ? "liked" : ""}" id="likes-${a.id}" onclick="toggleLike(event,'${a.id}')">
-            ${liked ? "❤️" : "🤍"} <span id="lc-${a.id}">${a.views || 0}</span>
-          </button>
           <span class="w-cta">READ →</span>
         </div>
       </a>
-    `;
-  }).join("");
+    `).join("");
 }
 
 // ─── RENDER TRADES ────────────────────────────────────────────────────────────
@@ -315,31 +306,6 @@ function closePopupDirect() {
 
 // Close on Escape
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePopupDirect(); });
-
-// ─── LIKES ────────────────────────────────────────────────────────────────────
-async function toggleLike(e, id) {
-  e.preventDefault();
-  e.stopPropagation();
-  const liked = likedArticles.includes(id);
-  const article = allArticles.find(a => a.id === id);
-  if (!article) return;
-  const el = document.getElementById("likes-" + id);
-  const countEl = document.getElementById("lc-" + id);
-  if (liked) {
-    likedArticles = likedArticles.filter(x => x !== id);
-    article.views = Math.max(0, (article.views || 1) - 1);
-    el.classList.remove("liked");
-    el.innerHTML = `🤍 <span id="lc-${id}">${article.views}</span>`;
-    await sb.from("articles").update({ views: article.views }).eq("id", id);
-  } else {
-    likedArticles.push(id);
-    article.views = (article.views || 0) + 1;
-    el.classList.add("liked");
-    el.innerHTML = `❤️ <span id="lc-${id}">${article.views}</span>`;
-    await sb.from("articles").update({ views: article.views }).eq("id", id);
-  }
-  localStorage.setItem("liked_articles", JSON.stringify(likedArticles));
-}
 
 // ─── SEARCH ───────────────────────────────────────────────────────────────────
 function handleSearch() {
