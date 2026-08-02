@@ -93,7 +93,6 @@ section:last-of-type{border-bottom:none}
 .expand-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);border:1px solid var(--border);border-radius:5px;padding:4px 10px}
 .expand-btn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* Lightbox */
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:2000;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 .lightbox.open{display:flex}
 .lightbox img{max-width:95vw;max-height:90vh;object-fit:contain;border-radius:8px}
@@ -241,34 +240,44 @@ async function loadAll() {
 
 async function loadArticles() {
   try {
-    const { data, error } = await sb.from("articles").select("*").order("position", { ascending: true, nullsFirst: false });
-    if (error) throw error;
+    const { data, error } = await sb.from("articles").select("*").order("position", { ascending: true });
+    if (error) {
+      console.error(error);
+      // fallback without order
+      const res = await sb.from("articles").select("*");
+      allArticles = (res.data || []).sort((a,b) => (a.position||999) - (b.position||999));
+    } else {
+      allArticles = data || [];
+    }
     document.getElementById("writing-loading").style.display = "none";
-    allArticles = data || [];
     renderArticles(allArticles);
   } catch (e) {
     console.error("Articles load error:", e);
-    document.getElementById("writing-loading").textContent = "Failed to load. Retrying...";
-    setTimeout(loadArticles, 2000);
+    document.getElementById("writing-loading").textContent = "Failed to load";
   }
 }
 
 async function loadTrades() {
   try {
-    const { data, error } = await sb.from("trades").select("*, trade_updates(*)").order("position", { ascending: true, nullsFirst: false });
-    if (error) throw error;
-    document.getElementById("trades-loading").style.display = "none";
-    // Pinned first
-    allTrades = (data || []).sort((a, b) => {
+    const { data, error } = await sb.from("trades").select("*, trade_updates(*)").order("position", { ascending: true });
+    if (error) {
+      console.error(error);
+      const res = await sb.from("trades").select("*, trade_updates(*)");
+      allTrades = res.data || [];
+    } else {
+      allTrades = data || [];
+    }
+    // Pinned first, then position
+    allTrades.sort((a, b) => {
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
       return (a.position || 999) - (b.position || 999);
     });
+    document.getElementById("trades-loading").style.display = "none";
     renderTrades(allTrades);
   } catch (e) {
     console.error("Trades load error:", e);
-    document.getElementById("trades-loading").textContent = "Failed to load. Retrying...";
-    setTimeout(loadTrades, 2000);
+    document.getElementById("trades-loading").textContent = "Failed to load";
   }
 }
 
