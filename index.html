@@ -10,7 +10,7 @@
 :root{
   --bg:#080B10;--surface:#0F1318;--card:#131820;--border:#1E2530;
   --accent:#7B61FF;--accent2:#00E5C3;--text:#E8EDF2;--muted:#5A6470;--dim:#8A94A0;
-  --win:#00e5a0;--loss:#ff4d4d;--open:#00c9a0;
+  --win:#00e5a0;--loss:#ff4d4d;--open:#22d3ee;--be:#fbbf24;--futures:#a78bfa;--spot:#60a5fa;
 }
 html.light{
   --bg:#F4F6F9;--surface:#FFFFFF;--card:#FFFFFF;--border:#E2E6ED;
@@ -36,31 +36,42 @@ a{color:inherit;text-decoration:none}
 .search-input:focus{border-color:var(--accent)}
 .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px;pointer-events:none}
 
-section{padding:32px 0;border-bottom:1px solid var(--border)}
+section{padding:28px 0;border-bottom:1px solid var(--border)}
 section:last-of-type{border-bottom:none}
-.section-label{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.section-label{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .section-label h2{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 .empty-msg,.loading-msg{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);padding:6px 0}
 .loading-msg{animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-.writing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-@media(max-width:900px){.writing-grid{grid-template-columns:repeat(2,1fr)}}
+/* 3 columns max — compact cards, no giant empty slots */
+.writing-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  align-content:start;
+}
+@media(max-width:800px){.writing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.writing-grid{grid-template-columns:1fr}}
 
 .w-card{background:var(--card);border:1px solid var(--border);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
 .w-card:hover{border-color:var(--accent);transform:translateY(-2px)}
-.w-thumb{width:100%;aspect-ratio:3/2;object-fit:cover;object-position:top;display:block;cursor:zoom-in}
-.w-thumb-empty{width:100%;aspect-ratio:3/2;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px}
-.w-body{padding:9px 11px 8px;flex:1;display:flex;flex-direction:column;gap:2px}
+.w-thumb{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;display:block;cursor:zoom-in}
+.w-thumb-empty{width:100%;aspect-ratio:16/10;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:9px}
+.w-body{padding:8px 10px 6px;flex:1;display:flex;flex-direction:column;gap:2px}
 .w-tag{font-size:9px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2)}
 .w-title{font-size:12px;font-weight:600;line-height:1.3}
-.w-date{font-size:10px;color:var(--muted);margin-top:4px}
-.w-footer{padding:6px 11px;border-top:1px solid var(--border);display:flex;justify-content:flex-end}
+.w-date{font-size:10px;color:var(--muted);margin-top:3px}
+.w-footer{padding:5px 10px 8px;border-top:1px solid var(--border);display:flex;justify-content:flex-end}
 .w-cta{background:var(--accent);color:#fff;font-size:9px;font-family:'Space Mono',monospace;font-weight:700;padding:3px 8px;border-radius:4px}
 
-.trades-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.trades-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  align-content:start;
+}
 @media(max-width:700px){.trades-grid{grid-template-columns:1fr}}
 
 .trade-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s;position:relative}
@@ -68,26 +79,36 @@ section:last-of-type{border-bottom:none}
 .trade-card:hover{border-color:rgba(123,97,255,.4)}
 .pin-badge{position:absolute;top:8px;right:8px;background:var(--accent);color:#fff;font-size:9px;font-family:'Space Mono',monospace;padding:2px 6px;border-radius:4px;z-index:2}
 
-.trade-header{padding:12px 14px 10px;border-bottom:1px solid var(--border)}
-.trade-meta{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap}
-.trade-pair{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2)}
-.icon-badge{display:inline-flex;align-items:center;gap:3px;font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:12px}
-.icon-open{background:rgba(0,201,160,.1);color:var(--open);border:1px solid rgba(0,201,160,.25)}
-.icon-win{background:rgba(0,229,160,.12);color:var(--win);border:1px solid rgba(0,229,160,.3)}
-.icon-loss{background:rgba(255,77,77,.1);color:var(--loss);border:1px solid rgba(255,77,77,.25)}
-.icon-roi{background:rgba(123,97,255,.1);color:var(--accent);border:1px solid rgba(123,97,255,.25)}
+.trade-header{padding:10px 12px 8px;border-bottom:1px solid var(--border)}
+.trade-meta{display:flex;align-items:center;gap:5px;margin-bottom:6px;flex-wrap:wrap}
+.trade-pair{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);margin-right:2px}
+
+/* Strong colored chips */
+.icon-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  font-family:'Space Mono',monospace;font-size:9px;font-weight:700;
+  padding:3px 8px;border-radius:999px;letter-spacing:.02em;
+}
+.icon-open{background:rgba(34,211,238,.18);color:#22d3ee;border:1px solid rgba(34,211,238,.45)}
+.icon-win{background:rgba(0,229,160,.18);color:#00e5a0;border:1px solid rgba(0,229,160,.5)}
+.icon-loss{background:rgba(255,77,77,.18);color:#ff4d4d;border:1px solid rgba(255,77,77,.5)}
+.icon-be{background:rgba(251,191,36,.18);color:#fbbf24;border:1px solid rgba(251,191,36,.5)}
+.icon-roi{background:rgba(123,97,255,.18);color:#a78bfa;border:1px solid rgba(123,97,255,.45)}
+.icon-futures{background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.4)}
+.icon-spot{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.4)}
+
 .trade-title-text{font-size:13px;font-weight:600;line-height:1.3}
 .trade-date{font-size:10px;color:var(--muted);margin-top:3px;font-family:'Space Mono',monospace}
 
-.trade-body{padding:10px 14px}
+.trade-body{padding:8px 12px}
 .img-carousel{position:relative;border-radius:7px;overflow:hidden;border:1px solid var(--border);cursor:zoom-in}
-.img-carousel img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:top;display:block;user-select:none}
+.img-carousel img{width:100%;aspect-ratio:16/8;object-fit:cover;object-position:top;display:block;user-select:none}
 .carousel-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
 .carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer}
 .carousel-dot.active{background:#fff}
-.trade-caption{font-size:12px;color:var(--dim);line-height:1.45;margin-top:8px}
+.trade-caption{font-size:12px;color:var(--dim);line-height:1.45;margin-top:6px}
 
-.trade-footer{padding:8px 14px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.trade-footer{padding:6px 12px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .view-post-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);border:1px solid rgba(123,97,255,.3);border-radius:5px;padding:4px 10px}
 .view-post-btn:hover{background:rgba(123,97,255,.1)}
 .expand-btn{font-family:'Space Mono',monospace;font-size:10px;color:var(--dim);border:1px solid var(--border);border-radius:5px;padding:4px 10px}
@@ -243,7 +264,6 @@ async function loadArticles() {
     const { data, error } = await sb.from("articles").select("*").order("position", { ascending: true });
     if (error) {
       console.error(error);
-      // fallback without order
       const res = await sb.from("articles").select("*");
       allArticles = (res.data || []).sort((a,b) => (a.position||999) - (b.position||999));
     } else {
@@ -267,7 +287,6 @@ async function loadTrades() {
     } else {
       allTrades = data || [];
     }
-    // Pinned first, then position
     allTrades.sort((a, b) => {
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
@@ -341,6 +360,36 @@ document.addEventListener("touchend", e => {
   delete car._sx;
 }, {passive:true});
 
+function statusChip(status) {
+  const s = (status || "").toLowerCase();
+  if (s === "open") return `<span class="icon-badge icon-open">● Open</span>`;
+  if (s === "closed_win" || s === "win") return `<span class="icon-badge icon-win">▲ Win</span>`;
+  if (s === "closed_loss" || s === "loss") return `<span class="icon-badge icon-loss">▼ Loss</span>`;
+  if (s === "break_even" || s === "breakeven" || s === "be") return `<span class="icon-badge icon-be">◆ BE</span>`;
+  if (s === "closed") return `<span class="icon-badge icon-be">● Closed</span>`;
+  return `<span class="icon-badge icon-open">${status || "—"}</span>`;
+}
+
+function typeChip(type) {
+  const t = (type || "").toLowerCase();
+  if (t === "futures") return `<span class="icon-badge icon-futures">Futures</span>`;
+  if (t === "spot") return `<span class="icon-badge icon-spot">Spot</span>`;
+  if (!type) return "";
+  return `<span class="icon-badge icon-spot">${type}</span>`;
+}
+
+function roiChip(t) {
+  if (t.roi == null || t.roi === "") return "";
+  const n = parseFloat(t.roi);
+  const s = (t.status || "").toLowerCase();
+  let sign = "";
+  let cls = "icon-roi";
+  if (s === "closed_win" || s === "win" || n > 0) { sign = "+"; cls = "icon-win"; }
+  else if (s === "closed_loss" || s === "loss" || n < 0) { sign = n < 0 ? "" : "-"; cls = "icon-loss"; }
+  else if (s === "break_even" || s === "breakeven" || n === 0) { cls = "icon-be"; }
+  return `<span class="icon-badge ${cls}">${sign}${Math.abs(n)}%</span>`;
+}
+
 function renderTrades(items) {
   const grid = document.getElementById("trades-grid");
   const empty = document.getElementById("trades-empty");
@@ -349,14 +398,7 @@ function renderTrades(items) {
 
   grid.innerHTML = items.map(t => {
     const updates = (t.trade_updates || []).sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
-    const statusIcon = t.status === "open"
-      ? `<span class="icon-badge icon-open">● Open</span>`
-      : t.status === "closed_win"
-        ? `<span class="icon-badge icon-win">▲ Win</span>`
-        : `<span class="icon-badge icon-loss">▼ Loss</span>`;
-    const roiIcon = t.roi ? `<span class="icon-badge icon-roi">${t.status === "closed_win" ? "+" : "-"}${t.roi}%</span>` : "";
     const pinBadge = t.pinned ? `<span class="pin-badge">PINNED</span>` : "";
-
     const updatesBtn = updates.length
       ? `<button class="expand-btn" onclick="openPopup('${t.id}')">Updates (${updates.length}) →</button>`
       : `<span style="font-family:monospace;font-size:10px;color:var(--muted)">No updates</span>`;
@@ -366,11 +408,13 @@ function renderTrades(items) {
         ${pinBadge}
         <div class="trade-header">
           <div class="trade-meta">
-            <span class="trade-pair">${t.ticker}/USDT · ${t.timeframe || ""} · ${t.exchange || ""}</span>
-            ${statusIcon}${roiIcon}
+            <span class="trade-pair">${t.ticker}/USDT · ${t.timeframe || ""}</span>
+            ${statusChip(t.status)}
+            ${typeChip(t.trade_type)}
+            ${roiChip(t)}
           </div>
           <p class="trade-title-text">${t.title || ""}</p>
-          <p class="trade-date">${formatDate(t.trade_date || t.created_at)}</p>
+          <p class="trade-date">${formatDate(t.trade_date || t.created_at)}${t.exchange ? " · " + t.exchange : ""}</p>
         </div>
         <div class="trade-body">
           ${makeCarousel(t.chart_image, t.chart_image_2, t.id)}
